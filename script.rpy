@@ -2,6 +2,8 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
+
+
 define me = Character("...")
 define anon = Character("???")
 define jd = Character("Juan Doble Jr.")
@@ -18,11 +20,15 @@ image ph bg= im.Scale("images/bg/phbg.png", 1920, 1080)
 image Juan doble jr neutro = "images/plhjuanjr.png"
 image gardel neutro = im.Scale("images/plhgardel.png", 500, 900)
 image julia neutra = im.Scale("images/plhjulia.png", 500, 900)
-image pesto neutro = im.Scale("images/plhpesto.png", 500, 900)
+image pesto neutro = im.Scale("images/plhpesto.png", 600, 900)
 
 #Variables en el sentido mas crudo posible:
 
-
+default bathroom_visited = False
+default polideportivo_visited = False
+default pasillos_visited = False
+default comedor_visited = False
+default reputacion = 0
 
 # The game starts here.
 
@@ -31,22 +37,22 @@ label start:
 
 
 
-    scene ph bg
-
-    # Try playing sound with full volume
-    $ renpy.music.set_volume(1.0, channel='sound')
+    scene bg negro with dissolve
 
     # Play sound effect
     play sound "audio/carpark.wav" channel "sound"
 
     pause 4.5
-    #Inserte foto desde el auto viendo la entrada de la escuela    
+    #Esto es cuando ve la escuela desde el auto
+    scene ph bg with dissolve     
     me "Se ve… anticuado?"
     anon "Chau cuidate!"
-    play sound "audio/carclose.wav" 
+    play sound "audio/carclose.wav"
+    scene ph bg with dissolve 
     me "Chau..."
-    show Juan doble jr neutro at higher_center
+    show Juan doble jr neutro at higher_center 
     jd "¡Hola! ¿Cómo estás?"
+    play music "audio/OST/1.mp3"
     jd "Soy el preceptor Juan, estoy encargado de mantener el orden en los salones y pasillos."
     jd "Podés acudir a mi si tenés algún problema, si me querés avisar algo o si tenés algún chisme. Estoy abierto a todo, con tal de sobrevivir a este trabajo."
     jd "Por las dudas, como te llamabas?"
@@ -54,19 +60,23 @@ label start:
     $ player = player.strip()
     if player == "":
         $ player = "El original"
+    if player.lower() in ["pomni", "digital rizz"]:
+        "when digital circus"
+    if player.lower() in ["rizz", "skibidi", "chamba"]:
+        "Arregla tu humor."
+    if player.lower() in ["pintos"]:
+        "Más vale que no me estes usurpando la identidad"
+    if player.lower() in ["peron"]:
+        "Chori?"
     mc "Hola! Me llamo [player]"
     jd "Bueno [player], acordate que cualquier cosa buscame que te ayudo."
 
     hide Juan doble jr neutro
 
     "A donde queres ir?"
-$ bathroom_visited = False
-$ polideportivo_visited = False
-$ pasillos_visited = False
-$ comedor_visited = False
+
 label deciciones:
 
-    
     menu:
         "Baño" if not bathroom_visited:
             "Entras al baño"
@@ -99,8 +109,10 @@ label deciciones:
             "Recorres los pasillos y te encuentras con Julía Maidana."
             show julia neutra
             jm "¡Holaaa! ¿Vos sos el nuevo? ¿Cómo estás? Soy Juli Maidana…"
+            $ renpy.music.set_volume(0.0)
             jm "..." 
             pause 4
+            $ renpy.music.set_volume(1.0)
             jm "¿Tenés comida?"
             menu:
                 "¡Hola! Soy [player], un gustazo… No, no tengo comida, también me cago de hambre.":
