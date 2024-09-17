@@ -16,6 +16,8 @@ define pc = Character("Pesto Camogli")
 #Fondos
 image bg negro= "images/bg/black.jpg"
 image ph bg= im.Scale("images/bg/phbg.png", 1920, 1080)
+image autoin= im.Scale("images/bg/autointesc.png", 1920, 1080)
+image esc= im.Scale("images/bg/escuela.png", 1920, 1080)
 #Personajes
 image Juan doble jr neutro = "images/plhjuanjr.png"
 image gardel neutro = im.Scale("images/plhgardel.png", 500, 900)
@@ -34,7 +36,7 @@ default reputacion = 0
 
 label start:
 
-
+    stop music
 
 
     scene bg negro with dissolve
@@ -44,13 +46,15 @@ label start:
 
     pause 4.5
     #Esto es cuando ve la escuela desde el auto
-    scene ph bg with dissolve     
+    scene autoin with dissolve     
     me "Se ve… anticuado?"
     anon "Chau cuidate!"
-    play sound "audio/carclose.wav"
-    scene ph bg with dissolve 
+    scene esc with dissolve 
     me "Chau..."
-    show Juan doble jr neutro at higher_center 
+    play sound "audio/carclose.wav"
+    pause 1
+    show Juan doble jr neutro at center with dissolve
+    pause 0.7
     jd "¡Hola! ¿Cómo estás?"
     play music "audio/OST/1.mp3"
     jd "Soy el preceptor Juan, estoy encargado de mantener el orden en los salones y pasillos."
@@ -137,7 +141,7 @@ label deciciones:
             "Vas al comedor"
             "Recorres los pasillos de la izquierda hasta llegar al comedor, ya ahí te topas con Pesto Camogli, un alumno que siempre tiene comida y Coca-Cola"
             show pesto neutro
-            pc "Fua loco mira tengo una coca en una mano AAAA ME GENERO AI SOCORRO"
+            pc "Fua loco mira tengo una coca en una mano AAAA ME GENERO UNA IA SOCORRO"
             $ comedor_visited = True
             hide pesto neutro
             jump deciciones
