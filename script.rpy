@@ -131,7 +131,7 @@ label deciciones:
                     jm "Owwww… ¿Por qué así ? *Llora * Te prometo que cuando tenga comida te convido."
                 
                 "Hola. No me toques, muerta de hambre.":
-                    jm "¡Paraaa, forro! Está bien, andate nomás."
+                    jm "¡Paraaa, fofro! Está bien, andate nomás."
            
             hide julia neutra
             mc "(Como se nota que es una escuela publica esto...)"
